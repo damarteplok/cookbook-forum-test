@@ -20,5 +20,15 @@ class UserstableSeeder extends Seeder
         	'avatar' => asset('avatars/avatar.png')
 
         ]);
+
+        App\User::create([
+
+            'name' => 'Damar Teplok',
+            'password' => bcrypt('password'),
+            'email' => 'jessicavania7@gmail.com',
+            
+            'avatar' => asset('avatars/avatar.png')
+
+        ]);
     }
 }

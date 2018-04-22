@@ -72,25 +72,19 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-3">
-
-                        <a href="{{ route('discussions.create') }}" class="form-control btn btn-primary mb-2">Create a new discussion</a>
-
-                        
-
-                        <div class="card">
-                            <div class="card-header">
-                                Channels
-                            </div>
-                            <div class="card-body px-1">
-                                <div class="list-group">
-                                    @foreach($channels as $channel)
-                                        <li class="list-group-item">
-                                            {{ $channel->title }}
-                                        </li>
-                                    @endforeach
-                                </div>
+                        <div class="card mb-4">
+                            <img src="{{ $discussion->user->avatar }}" class="rounded-circle mx-auto" style= "width: 100px; height: 100px"  alt="Card image cap">
+                            <div class="card-body">
+                                <h2 class="card-title text-center">
+                                    {{ $discussion->user->name }}
+                                </h2>
                             </div>
                         </div>
+                        <hr>
+                        <a href="" class="btn btn-primary btn-block">Subscribe</a>
+                        <a class="btn btn-link btn-block" href="{{ route('forum') }}">
+                            <i class="fa fa-arrow-left"></i> Back
+                        </a>
                     </div>
                     <div class="col-md-9">
                         @yield('content')
