@@ -39,6 +39,7 @@
                 @guest
                 @else
                 <div class="float-right">
+                    <a href="/" class="btn btn-sm btn-info"></a>
                     @if($r->is_liked_by_auth_user())
                         <a href="{{ route('reply.unlike', ['id' => $r->id]) }}" class="btn btn-outline-danger btn-sm">unlike</a>
                     @else
