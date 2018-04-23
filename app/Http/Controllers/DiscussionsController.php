@@ -6,17 +6,24 @@ use Illuminate\Http\Request;
 use App\Discussion;
 use Auth;
 use Session;
+use App\Reply;
+use App\User;
+use Notification;
 
 class DiscussionsController extends Controller
 {
     //
 
     public function create()
+
     {
-    	return view('discuss');
+    	return view('discussions.create');
     }
 
+    
+
     public function store()
+    
     {
 
     	$r = request();
@@ -41,10 +48,41 @@ class DiscussionsController extends Controller
 
     	return redirect()->route('discussion', ['slug' => $discussion->slug]);
     }
+
     public function show($slug)
+    
     {
     	
     	return view('discussions.show')->with('discussion',
     	Discussion::where('slug', $slug)->first());
     }
+
+    public function reply($id)
+    
+    {
+    	$d = Discussion::find($id);
+    	$reply = Reply::create([
+
+    		'user_id' => Auth::id(),
+    		'discussion_id' => $id,
+    		'content' => request()->reply
+
+    	]);
+
+    	$watchers = array();
+
+    	foreach($d->watchers as $watcher):
+    		array_push($watchers, User::find($watcher->user_id));
+    	endforeach;
+
+    	Notification::send($watchers, new \App\Notifications\NewReplyAdded($d));
+
+
+
+    	Session::flash('success', 'Replied to discussion');
+    	return redirect()->back();
+
+    }
+
 }
+

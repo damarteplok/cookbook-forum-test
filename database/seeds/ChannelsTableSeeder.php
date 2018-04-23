@@ -12,15 +12,24 @@ class ChannelsTableSeeder extends Seeder
     public function run()
     {
         //
-        $channel1 = ['title' => 'Twice'];
-        $channel2 = ['title' => 'BlackPink'];
-        $channel3 = ['title' => 'Pristin'];
-        $channel4 = ['title' => 'AOA'];
-        $channel5 = ['title' => 'GFriend'];
-        $channel6 = ['title' => 'DIA'];
-        $channel7 = ['title' => 'Apink'];
-        $channel8 = ['title' => 'IU'];
-        $channel9 = ['title' => 'EXID'];
+        $channel1 = ['title' => 'Twice', 
+        'slug' => str_slug('Twice')];
+        $channel2 = ['title' => 'BlackPink',
+    	'slug' => str_slug('BlackPink')];
+        $channel3 = ['title' => 'Pristin',
+    	'slug' => str_slug('Pristin')];
+        $channel4 = ['title' => 'AOA',
+    	'slug' => str_slug('AOA')];
+        $channel5 = ['title' => 'GFriend',
+    	'slug' => str_slug('GFriend')];
+        $channel6 = ['title' => 'DIA',
+    	'slug' => str_slug('DIA')];
+        $channel7 = ['title' => 'Apink',
+    	'slug' => str_slug('Apink')];
+        $channel8 = ['title' => 'IU',
+    	'slug' => str_slug('IU')];
+        $channel9 = ['title' => 'EXID',
+    	'slug' => str_slug('EXID')];
 
         App\Channel::create($channel1);
         App\Channel::create($channel2);

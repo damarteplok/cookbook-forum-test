@@ -71,10 +71,26 @@
         <main class="py-4">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-4 mb-sm-0">
 
-                        <a href="{{ route('discussions.create') }}" class="form-control btn btn-primary mb-2">Create a new discussion</a>
+                        
+                        <a href="{{ route('discussions.create') }}" class="form-control btn btn-primary mb-3">Create a new discussion</a>
 
+                        <div class="card mb-3">
+                            
+                            <div class="card-body px-1">
+                                <div class="list-group">
+                                    
+                                    <li class="list-group-item">
+                                        <a href="{{ route('forum') }}"
+                                            style="text-decoration: none;">
+                                        Home
+                                        </a>
+                                    </li>
+                                
+                                </div>
+                            </div>
+                        </div>
                         
 
                         <div class="card">
@@ -85,7 +101,10 @@
                                 <div class="list-group">
                                     @foreach($channels as $channel)
                                         <li class="list-group-item">
+                                            <a href="{{ route('channel', ['slug' => $channel->slug ]) }}"
+                                                style="text-decoration: none;">
                                             {{ $channel->title }}
+                                            </a>
                                         </li>
                                     @endforeach
                                 </div>

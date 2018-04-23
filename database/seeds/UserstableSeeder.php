@@ -27,7 +27,7 @@ class UserstableSeeder extends Seeder
             'password' => bcrypt('password'),
             'email' => 'jessicavania7@gmail.com',
             
-            'avatar' => asset('avatars/avatar.png')
+            'avatar' => asset('avatars/avatar2.png')
 
         ]);
     }

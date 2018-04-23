@@ -10,7 +10,7 @@
 
                 <span>{{ $discussion->user->name }}&nbsp; <b>{{ $discussion->created_at->diffForHumans() }}</b></span>
                 &nbsp;&nbsp;&nbsp;
-                <a href="{{ route('channel', ['slug' => $discussion->channel->slug]) }}" class="btn btn-outline-info btn-sm float-right">{{ $discussion->channel->title }}</a>
+                <a href="{{-- {{ route('discussion', ['slug' => $discussion->slug]) }} --}}" class="btn btn-outline-info btn-sm float-right">{{ $discussion->channel->title }}</a>
 
             </div>
 

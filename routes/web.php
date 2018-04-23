@@ -6,17 +6,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/discuss', function () {
-    return view('discuss');
-});
 
-Auth::routes();
+
 
 Route::get('/forum', [
 	'uses' => 'ForumsController@index',
 	'as' => 'forum'
 
 ]);
+Auth::routes();
 
 Route::get('{provider}/auth', [
 	'uses' => 'SocialsController@auth',
@@ -28,20 +26,55 @@ Route::get('/{provider}/redirect', [
 	'as' => 'social.callback'
 ]);
 
+Route::get('discussion/{slug}', [
+		'uses' => 'DiscussionsController@show',
+		'as' => 'discussion'
+]);
+
+Route::get('channel/{slug}', [
+	'uses' => 'ForumsController@channel',
+	'as' => 'channel'
+
+]);
+
+
 Route::group(['middleware' => 'auth'], function(){
 	Route::resource('channels', 'ChannelsController');
 
-	Route::get('discussion/create', [
+	// Route::get('/discuss', function () {
+	//     return view('discuss');
+	// });
+
+	Route::get('discussion/create/new', [
 		'uses' => 'DiscussionsController@create',
 		'as' => 'discussions.create'
 	]);
+	
 
 	Route::post('discussion/store', [
 		'uses' => 'DiscussionsController@store',
 		'as' => 'discussions.store'
 	]);
-	Route::get('discussion/{slug}', [
-		'uses' => 'DiscussionsController@show',
-		'as' => 'discussion'
+	
+	Route::post('discussion/reply/{id}', [
+		'uses' => 'DiscussionsController@reply',
+		'as' => 'discussions.reply'
+	]);
+
+	Route::get('reply/like/{id}', [
+		'uses' => 'RepliesController@like',
+		'as' => 'reply.like'
+	]);
+	Route::get('reply/unlike/{id}', [
+		'uses' => 'RepliesController@unlike',
+		'as' => 'reply.unlike'
+	]);
+	Route::get('discussion/watch/{id}', [
+		'uses' => 'WatchersController@watch',
+		'as' => 'discussion.watch'
+	]);
+	Route::get('discussion/unwatch/{id}', [
+		'uses' => 'WatchersController@unwatch',
+		'as' => 'discussion.unwatch'
 	]);
 });

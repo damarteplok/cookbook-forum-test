@@ -69,41 +69,7 @@
         </nav>
    
         <main class="py-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 mb-sm-4">
-                        <div class="card mb-4">
-                            <img src="{{ $discussion->user->avatar }}" class="rounded-circle mx-auto m-4" style= "width: 100px; height: 100px"  alt="Card image cap">
-                            <div class="card-body">
-                                <h2 class="card-title text-center">
-                                    {{ $discussion->user->name }}
-                                </h2>
-                            </div>
-                        </div>
-                        <hr>
-                        @guest
-                        <a class="btn btn-link btn-block" href="{{ route('forum') }}">
-                            <i class="fa fa-arrow-left"></i> Back
-                        </a>
-                        <hr>
-                        @else
-                        @if($discussion->is_being_watched_by_auth_user())
-                            <a href="{{route('discussion.unwatch',['id' => $discussion->id])}}" class="btn btn-danger btn-block">UnSubscribe</a>
-                        @else
-                            <a href="{{route('discussion.watch',['id' => $discussion->id])}}" class="btn btn-primary btn-block">Subscribe</a>
-                        @endif
-                        
-                        <a class="btn btn-link btn-block" href="{{ route('forum') }}">
-                            <i class="fa fa-arrow-left"></i> Back
-                        </a>
-                        <hr>
-                        @endguest
-                    </div>
-                    <div class="col-md-9">
-                        @yield('content')
-                    </div>
-                </div>
-            </div>
+            @yield('content')
         </main>
     </div>
 </body>

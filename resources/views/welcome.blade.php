@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -46,7 +46,22 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 5.25rem;
+            }
+
+            @media (max-width: 576px) { 
+
+                .title {    
+                    font-size: 2.75rem;
+                }
+            }
+            
+            .title-2 {
+                font-size: 2rem;
+            }
+
+            .title-3 {
+                font-size: 1.6rem;
             }
 
             .links > a {
@@ -69,7 +84,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/forum') }}">{{ Auth::user()->name }}</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
@@ -79,7 +94,11 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    cookbook-forum-test
+                    AbsolutHaram-forum
+                </div>
+
+                <div class="title-2 m-b-md">
+                    The Kpoper Portal
                 </div>
 
                 <div class="links">
@@ -87,7 +106,13 @@
                     <a href="{{ route('social.auth',['provider' => 'github']) }}">GitHub</a>
 
                     <a href="{{ route('social.auth',['provider' => 'facebook']) }}">Facebook</a>
+
+                    <a href="{{ route('forum') }}">Forum</a>
                 </div>
+
+
+               
+
             </div>
         </div>
     </body>
