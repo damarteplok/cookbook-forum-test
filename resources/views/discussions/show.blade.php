@@ -21,7 +21,23 @@
                 {{ $discussion->content }}
             </p>
 
-            
+            <hr>
+
+            @if($best_answer)
+            <div class="p-4">
+                <h5 class="card-title">Best Answer</h5>
+                <div class="card border-success">
+                    <div class="card-header">
+                        <img src="{{ $best_answer->user->avatar }}" alt="" class="img__forum rounded">&nbsp;&nbsp;
+
+                        <span>{{ $best_answer->user->name }}&nbsp; <b>{{ $best_answer->created_at->diffForHumans() }}</b></span>
+                    </div>
+                    <div class="card-body text-success">
+                        {{ $best_answer->content }}
+                    </div>
+                </div>
+            </div>
+            @endif
 
         </div>
 
@@ -39,7 +55,10 @@
                 @guest
                 @else
                 <div class="float-right">
-                    <a href="/" class="btn btn-sm btn-info"></a>
+                    @if(!$best_answer)
+                    <a href="{{ route('discussion.best.answer', ['id' => $r->id]) }}" class="btn btn-sm btn-info">Mark as best answers</a>
+                    @endif
+
                     @if($r->is_liked_by_auth_user())
                         <a href="{{ route('reply.unlike', ['id' => $r->id]) }}" class="btn btn-outline-danger btn-sm">unlike</a>
                     @else
