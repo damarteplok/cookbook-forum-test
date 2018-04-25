@@ -13,11 +13,11 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
-        //
-        View::share('channels', Channel::all());
-    }
+    // public function boot()
+    // {
+    //     //
+    //     View::share('channels', Channel::all());
+    // }
 
     /**
      * Register any application services.
