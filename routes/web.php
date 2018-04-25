@@ -37,6 +37,12 @@ Route::get('channel/{slug}', [
 
 ]);
 
+Route::get('channel/forum/rules', [
+	'uses' => 'ForumsController@forumrules',
+	'as' => 'forum.rules'
+
+]);
+
 
 Route::group(['middleware' => 'auth'], function(){
 	Route::resource('channels', 'ChannelsController');
@@ -81,5 +87,24 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('discussion/best/reply/{id}', [
 		'uses' => 'RepliesController@best_answer',
 		'as' => 'discussion.best.answer'
+	]);
+
+	Route::get('discussion/edit/{slug}', [
+		'uses' => 'DiscussionsController@edit',
+		'as' => 'discussions.edit'
+	]);
+	Route::post('discussion/update/{id}', [
+		'uses' => 'DiscussionsController@update',
+		'as' => 'discussions.update'
+	]);
+
+	Route::get('reply/edit/{id}', [
+		'uses' => 'RepliesController@edit',
+		'as' => 'reply.edit'
+	]);
+
+	Route::post('reply/update/{id}', [
+		'uses' => 'RepliesController@update',
+		'as' => 'reply.update'
 	]);
 });

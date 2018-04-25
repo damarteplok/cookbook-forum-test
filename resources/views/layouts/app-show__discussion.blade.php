@@ -13,12 +13,15 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/global.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
     @yield('style')
 </head>
 <body>
@@ -69,6 +72,8 @@
         </nav>
    
         <main class="py-4">
+            @include('layouts.error')
+            @include('layouts.success')
             <div class="container">
                 <div class="row">
                     <div class="col-md-3 mb-sm-4">
@@ -78,12 +83,21 @@
                                 <h2 class="card-title text-center">
                                     {{ $discussion->user->name }}
                                 </h2>
+                                <p class="text-center">
+                                <button class="btn btn-outline-warning btn-sm tece">{{ $discussion->user->points }} &#9733;</button>
+                                </p>
+                                <p class="card-text text-center">
+                                    Thread: {{ $discussion->user->thread }}
+                                </p>
+                                <p class="card-text text-center">
+                                    Replied: {{ $discussion->user->replied }}
+                                </p>
                             </div>
                         </div>
                         <hr>
                         @guest
                         <a class="btn btn-link btn-block" href="{{ route('forum') }}">
-                            <i class="fa fa-arrow-left"></i> Back
+                            &larr; Back
                         </a>
                         <hr>
                         @else
@@ -94,7 +108,7 @@
                         @endif
                         
                         <a class="btn btn-link btn-block" href="{{ route('forum') }}">
-                            <i class="fa fa-arrow-left"></i> Back
+                            &larr; Back
                         </a>
                         <hr>
                         @endguest
@@ -106,5 +120,8 @@
             </div>
         </main>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>

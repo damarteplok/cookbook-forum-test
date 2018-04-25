@@ -1,8 +1,46 @@
 @extends('layouts.app')
 
 @section('content')
+
+@if($discussions->count() > 0)
     
     @foreach($discussions as $discussion)
+        
+        @if($discussion->hasBestAnswer())
+        <div class="card border-success mb-4 clearfix">
+            <div class="card-header ">
+            
+                <img src="{{ $discussion->user->avatar }}" alt="" class="img__forum rounded">
+
+                <span>{{ $discussion->user->name }}&nbsp; <b>{{ $discussion->created_at->diffForHumans() }}</b></span>
+                &nbsp;&nbsp;&nbsp;
+                <span class="btn btn-success float-right btn-sm ml-2">CLOSED</span>
+                <a href="{{ route('channel', ['slug' => $discussion->channel->slug]) }}" class="btn btn-outline-info btn-sm float-right">{{ $discussion->channel->title }}</a>
+
+
+            </div>
+
+            <div class="card-body text-success">
+                <a href="{{ route('discussion', ['slug' => $discussion->slug]) }}">
+                
+                    <h4 class="card-title">
+                        {{ $discussion->title }}
+                        <span class="badge badge-info float-right">
+                            {{ $discussion->replies->count() }}
+                        </span>
+                    </h4>
+                    <p class="card-text">
+                        {{ str_limit($discussion->content, 100) }}
+                    </p>
+                    
+                </a>
+
+                
+
+            </div>
+        </div>
+        @else
+
         <div class="card mb-4 clearfix">
             <div class="card-header ">
             
@@ -10,7 +48,9 @@
 
                 <span>{{ $discussion->user->name }}&nbsp; <b>{{ $discussion->created_at->diffForHumans() }}</b></span>
                 &nbsp;&nbsp;&nbsp;
+                
                 <a href="{{ route('channel', ['slug' => $discussion->channel->slug]) }}" class="btn btn-outline-info btn-sm float-right">{{ $discussion->channel->title }}</a>
+
 
             </div>
 
@@ -32,16 +72,23 @@
                 
 
             </div>
+        </div>
+
+        @endif
 
             
-        </div>
+        
     @endforeach
 
     <div class="d-flex justify-content-center">
         {{ $discussions->links() }}
     </div>
 
-
+@else
+    <div class="alert alert-danger" role="alert">
+      No <strong>Result</strong> was found!
+    </div>
+@endif
     
 
 @endsection

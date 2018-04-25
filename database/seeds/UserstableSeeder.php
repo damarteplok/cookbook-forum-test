@@ -17,6 +17,8 @@ class UserstableSeeder extends Seeder
         	'password' => bcrypt('admin'),
         	'email' => 'mie.yaminasin@gmail.com',
         	'admin' => 1,
+            'thread' => 2,
+            'replied' => 3,
         	'avatar' => asset('avatars/avatar.png')
 
         ]);
@@ -26,7 +28,8 @@ class UserstableSeeder extends Seeder
             'name' => 'Damar Teplok',
             'password' => bcrypt('password'),
             'email' => 'jessicavania7@gmail.com',
-            
+            'thread' => 2,
+            'replied' => 1,
             'avatar' => asset('avatars/avatar2.png')
 
         ]);

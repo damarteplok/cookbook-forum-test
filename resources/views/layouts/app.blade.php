@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -19,6 +20,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/global.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
     @yield('style')
 </head>
 <body>
@@ -69,28 +72,72 @@
         </nav>
    
         <main class="py-4">
+            @include('layouts.error')
+            @include('layouts.success')
             <div class="container">
                 <div class="row">
                     <div class="col-md-3 mb-4 mb-sm-0">
 
                         
                         <a href="{{ route('discussions.create') }}" class="form-control btn btn-primary mb-3">Create a new discussion</a>
-
+                        @guest
+                        @else
                         <div class="card mb-3">
-                            
+                            @if(Auth::check())
+                            @if(Auth::user()->admin)
+                            <div class="card-header">
+                               &#9776; Dashboard Admin
+                            </div>
+                            @else
+                            <div class="card-header">
+                               &#9776; Dashboard Member
+                            </div>
+                            @endif
+                            @endif
                             <div class="card-body px-1">
                                 <div class="list-group">
+                                    @if(Auth::check())
+                                    @if(Auth::user()->admin)
+                                    <li class="list-group-item">
+                                        <a href="/channels/create"
+                                            style="text-decoration: none;">
+                                        Create Channels
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="/channels"
+                                            style="text-decoration: none;">
+                                        Edit Channels
+                                        </a>
+                                    </li>
+                                    @endif
+                                    @endif
                                     
                                     <li class="list-group-item">
-                                        <a href="{{ route('forum') }}"
+                                        <a href="/forum?filter=me"
                                             style="text-decoration: none;">
-                                        Home
+                                        My thread
+                                        </a>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <a href="/forum?filter=solved"
+                                            style="text-decoration: none;">
+                                        My closed thread
+                                        </a>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <a href="/forum?filter=unsolved"
+                                            style="text-decoration: none;">
+                                        My unanswered thread
                                         </a>
                                     </li>
                                 
                                 </div>
                             </div>
                         </div>
+                        @endguest
                         
 
                         <div class="card">
@@ -99,6 +146,12 @@
                             </div>
                             <div class="card-body px-1">
                                 <div class="list-group">
+                                    
+                                        <a href="{{ route('forum') }}"
+                                            style="text-decoration: none;" class="list-group-item  list-group-item-action active">
+                                        Home
+                                        </a>
+                                    </li>
                                     @foreach($channels as $channel)
                                         <li class="list-group-item">
                                             <a href="{{ route('channel', ['slug' => $channel->slug ]) }}"
@@ -118,5 +171,7 @@
             </div>
         </main>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>

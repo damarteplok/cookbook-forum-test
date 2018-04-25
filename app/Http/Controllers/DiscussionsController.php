@@ -44,6 +44,10 @@ class DiscussionsController extends Controller
     		'slug' => str_slug($r->title)
     	]);
 
+    	$discussion->user->points += 50;
+    	$discussion->user->thread += 1;
+    	$discussion->user->save();
+
     	Session::flash('success', 'Discussion succesfully created');
 
     	return redirect()->route('discussion', ['slug' => $discussion->slug]);
@@ -73,6 +77,11 @@ class DiscussionsController extends Controller
 
     	]);
 
+    	$reply->user->points += 25;
+    	$reply->user->replied += 1;
+    	$reply->user->save();
+
+
     	$watchers = array();
 
     	foreach($d->watchers as $watcher):
@@ -83,9 +92,32 @@ class DiscussionsController extends Controller
 
 
 
-    	Session::flash('success', 'Replied to discussion');
+    	Session::flash('success', 'Succesfully replied to discussion');
     	return redirect()->back();
 
+    }
+
+    public function edit($slug)
+    {
+    	return view('discussions.edit', ['discussion' => Discussion::where('slug', $slug)->first()]);
+    }
+
+    public function update($id)
+
+    {
+
+    	$this->validate(request(), [
+
+    		'content' => 'required'
+    	]);
+
+    	$d = Discussion::find($id);
+    	$d->content = request()->content;
+    	$d->save();
+
+    	Session::flash('success', 'Discussion updated');
+
+    	return redirect()->route('discussion', ['slug' => $d->slug]);
     }
 
 }
