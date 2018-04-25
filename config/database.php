@@ -1,4 +1,11 @@
 <?php
+$url = parse_url(getenv("HEROKU_POSTGRESQL_JADE_URL"));
+
+$host = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$database = substr($url["path"], 1);
+
 
 return [
 
@@ -54,18 +61,18 @@ return [
             'engine' => null,
         ],
 
-        'pgsql' => [
-            'driver' => 'pgsql',
-            'host' => ec2-174-129-41-64.compute-1.amazonaws.com,
-            'port' => env('DB_PORT', '5432'),
-            'database' => ddmn7t46b2hllb,
-            'username' => lblvkhvsivpiyn,
-            'password' => edaf9c704f7f01ac45cc4b55c21629500d3b322df955182e60e5b858f1d7b0bf,
-            'charset' => 'utf8',
-            'prefix' => '',
-            'schema' => 'public',
-            'sslmode' => 'prefer',
-        ],
+        // 'pgsql' => [
+        //     'driver' => 'pgsql',
+        //     'host' => env('DB_HOST', '127.0.0.1'),
+        //     'port' => env('DB_PORT', '5432'),
+        //     'database' => env('DB_DATABASE', 'forge'),
+        //     'username' => env('DB_USERNAME', 'forge'),
+        //     'password' => env('DB_PASSWORD', ''),
+        //     'charset' => 'utf8',
+        //     'prefix' => '',
+        //     'schema' => 'public',
+        //     'sslmode' => 'prefer',
+        // ],
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
